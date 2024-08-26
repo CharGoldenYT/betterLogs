@@ -11,6 +11,8 @@ class bcolors:
     FAIL = '\033[91m'
     ENDC = '\033[0m'
 
+version = '2'
+
 def create_logFile(filename:str, beforeBeginning:str = ''):
 
     r'''Creates a log file with a given filename, and writes a header to it'''
@@ -18,7 +20,7 @@ def create_logFile(filename:str, beforeBeginning:str = ''):
     try:
         logging = open(filename, 'a')
         if beforeBeginning != '': beforeBeginning = beforeBeginning + '\n'
-        logging.write(beforeBeginning + '<!-- Log Generator: "Better Logs V2" | Better Logs by Char @annyconducter on Discord -->\n<!-- START OF LOG -->\n'); logging.close()
+        logging.write(beforeBeginning + f'<!-- Log Generator: "Better Logs V{version}" | Better Logs by Char @annyconducter on Discord | https://github.com/CharGoldenYT/betterLogs -->\n<!-- START OF LOG -->\n'); logging.close()
     except Exception as e:
        frameinfo = getframeinfo(currentframe()); print('[' + str(frameinfo.filename) + '] [' + str(frameinfo.lineno) + '] Error with file"' + filename + '": "' + str(e) + '"')
 
