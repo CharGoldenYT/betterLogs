@@ -1,3 +1,6 @@
+# Better logging system that actually fucking works
+# Fuck you python logger!
+# Yes its a lot of redirect functions, but fuck you.
 from datetime import datetime
 from inspect import currentframe, getframeinfo
 class bcolors:
@@ -9,6 +12,9 @@ class bcolors:
     ENDC = '\033[0m'
 
 def create_logFile(filename:str, beforeBeginning:str = ''):
+
+    r'''Creates a log file with a given filename, and writes a header to it'''
+
     try:
         logging = open(filename, 'a')
         if beforeBeginning != '': beforeBeginning = beforeBeginning + '\n'
