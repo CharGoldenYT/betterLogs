@@ -5,6 +5,10 @@
 
  Simply put "betterLogs.py" in the directory where your other python scripts are and do "from betterLogs import *" to import all log functions
 
+ The name of the repo has been changed to allow for making a git submodule that can be imported by Python directly, if made a git submodule:
+
+ "from betterLogs.betterLogs import *
+
  `log(): This Function writes a log with the given level and string to write to the given file.`
 
 `filename:String | Self explanatory`
