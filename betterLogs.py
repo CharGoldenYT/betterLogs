@@ -53,11 +53,12 @@ def log(filename:str, log:str, level:str = '', showTime:bool = True, isHeader:bo
     if not showTime: timeString = ''
 
     logString = color + level + timeString + log
+    logWriteString = level + timeString + log + '\n'
 
     if doPrinting: print(logString)
 
     try:
-        logging = open(filename, 'a'); logging.write(logString + '\n'); logging.close()
+        logging = open(filename, 'a'); logging.write(logWriteString); logging.close()
     except Exception as e:
         frameinfo = getframeinfo(currentframe());print('[' + str(frameinfo.filename) + '] [' + str(frameinfo.lineno) + '] Error with file"' + filename + '": "' + str(e) + '"')
 
