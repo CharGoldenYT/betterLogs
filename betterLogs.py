@@ -56,7 +56,7 @@ def log(filename:str, log:str, level:str = '', showTime:bool = True, isHeader:bo
 
     logString = level + timeString + log
 
-    if doPrinting: print(color + logString + bcolors.ENDC)
+    if doPrinting: print(color + logString + bcolors.OKBLUE)
 
     try:
         logging = open(filename, 'a'); logging.write(logString + '\n'); logging.close()
