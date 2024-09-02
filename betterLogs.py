@@ -58,6 +58,9 @@ def log(filename:str, log:str, level:str = '', showTime:bool = True, isHeader:bo
 
     if doPrinting: print(color + logString + bcolors.OKBLUE)
 
+    if logString.__contains__('(Session ID:'):logString = logString.split('(')
+    if isinstance(logString, list):logString = logString[0]
+
     try:
         logging = open(filename, 'a'); logging.write(logString + '\n'); logging.close()
     except Exception as e:
