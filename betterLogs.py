@@ -1,6 +1,4 @@
-# Better logging system that actually fucking works
-# Fuck you python logger!
-# Yes its a lot of redirect functions, but fuck you.
+# Python's default importable logging lib doesn't QUITE work how i want it to, so i made a version that actually properly saves logs to a file while allowing for colors!
 from datetime import datetime
 from inspect import currentframe, getframeinfo
 class bcolors:
