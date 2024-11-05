@@ -24,7 +24,7 @@ def create_logFile(filename:str, beforeBeginning:str = ''):
     except Exception as e:
        frameinfo = getframeinfo(currentframe()); print('[' + str(frameinfo.filename) + '] [' + str(frameinfo.lineno) + '] Error with file"' + filename + '": "' + str(e) + '"')
 
-def log(filename:str, log:str = None, level:str = '', showTime:bool = True, isHeader:bool = False, doPrinting:bool = True):
+def log(filename:str, log:str = None, level:str = '', showTime:bool = True, isHeader:bool = False, doPrinting:bool = True, file:str = '', pos:int = 0):
 
     r'''This Function writes a log with the given level and string to write to the given file.
 
@@ -54,7 +54,10 @@ def log(filename:str, log:str = None, level:str = '', showTime:bool = True, isHe
 
         if not showTime: timeString = ''
 
-        logString = level + timeString + log
+        fileString = ''
+        if file != '':
+            fileString = file + ':' + str(pos)
+        logString = level + timeString + fileString + log
 
         if doPrinting: print(color + logString + bcolors.OKBLUE)
 
@@ -69,7 +72,7 @@ def log(filename:str, log:str = None, level:str = '', showTime:bool = True, isHe
     if log == None:
         print('NOT ENOUGH ARGUMENTS! forgot to put a log file!')
 
-def log_info(filename:str, v:any = None, showTime:bool = True, isHeader:bool = False, doPrinting:bool = True):
+def log_info(filename:str, v:any = None, showTime:bool = True, isHeader:bool = False, doPrinting:bool = True, file:str = '', pos:int = 0):
 
     r'''Redirect function to log() as a shortcut to not have to write the level each time.
     
@@ -79,9 +82,9 @@ def log_info(filename:str, v:any = None, showTime:bool = True, isHeader:bool = F
         return
 
     v = str(v)
-    log(filename, v, '[INFO]:', showTime, isHeader, doPrinting)
+    log(filename, v, '[INFO]:', showTime, isHeader, doPrinting, file, pos)
 
-def log_warning(filename:str, v:any = None, showTime:bool = True, isHeader:bool = False, doPrinting:bool = True):
+def log_warning(filename:str, v:any = None, showTime:bool = True, isHeader:bool = False, doPrinting:bool = True, file:str = '', pos:int = 0):
 
     r'''Redirect function to log() as a shortcut to not have to write the level each time.
     
@@ -91,15 +94,15 @@ def log_warning(filename:str, v:any = None, showTime:bool = True, isHeader:bool 
         return
 
     v = str(v)
-    log(filename, v, '[WARN]:', showTime, isHeader, doPrinting)
+    log(filename, v, '[WARN]:', showTime, isHeader, doPrinting, file, pos)
 
-def log_warn(filename:str, v:any = None, showTime:bool = True, isHeader:bool = False, doPrinting:bool = True):
+def log_warn(filename:str, v:any = None, showTime:bool = True, isHeader:bool = False, doPrinting:bool = True, file:str = '', pos:int = 0):
 
     r'''Redirect function to log_warning() as a shortcut'''
 
-    log_warning(filename, v, showTime, isHeader, doPrinting)
+    log_warning(filename, v, showTime, isHeader, doPrinting, file, pos)
 
-def log_error(filename:str, v:any = None, showTime:bool = True, isHeader:bool = False, doPrinting:bool = True):
+def log_error(filename:str, v:any = None, showTime:bool = True, isHeader:bool = False, doPrinting:bool = True, file:str = '', pos:int = 0):
 
     r'''Redirect function to log() as a shortcut to not have to write the level each time.
     
@@ -109,27 +112,15 @@ def log_error(filename:str, v:any = None, showTime:bool = True, isHeader:bool = 
         return
 
     v = str(v)
-    log(filename, v, '[ERR]:', showTime, isHeader, doPrinting)
+    log(filename, v, '[ERR]:', showTime, isHeader, doPrinting, file, pos)
 
-def log_err(filename:str, v:any = None, showTime:bool = True, isHeader:bool = False, doPrinting:bool = True):
+def log_err(filename:str, v:any = None, showTime:bool = True, isHeader:bool = False, doPrinting:bool = True, file:str = '', pos:int = 0):
 
     r'''Redirect function to log_error() as a shortcut'''
 
-    log_error(filename, v, showTime, isHeader, doPrinting)
+    log_error(filename, v, showTime, isHeader, doPrinting, file, pos)
 
-def log_critical(filename:str, v:any = None, showTime:bool = True, isHeader:bool = False, doPrinting:bool = True):
-
-    r'''Redirect function to log() as a shortcut to not have to write the level each time.
-    
-    Refer to log() for the variable purposes'''
-    if v == None:
-        print('NOT ENOUGH ARGUMENTS! forgot to put a log file!')
-        return
-
-    v = str(v)
-    log(filename, v, '[CRITICAL]:', showTime, isHeader, doPrinting)
-
-def log_fatal(filename:str, v:any = None, showTime:bool = True, isHeader:bool = False, doPrinting:bool = True):
+def log_critical(filename:str, v:any = None, showTime:bool = True, isHeader:bool = False, doPrinting:bool = True, file:str = '', pos:int = 0):
 
     r'''Redirect function to log() as a shortcut to not have to write the level each time.
     
@@ -139,7 +130,19 @@ def log_fatal(filename:str, v:any = None, showTime:bool = True, isHeader:bool = 
         return
 
     v = str(v)
-    log(filename, v, '[FATAL]:', showTime, isHeader, doPrinting)
+    log(filename, v, '[CRITICAL]:', showTime, isHeader, doPrinting, file, pos)
+
+def log_fatal(filename:str, v:any = None, showTime:bool = True, isHeader:bool = False, doPrinting:bool = True, file:str = '', pos:int = 0):
+
+    r'''Redirect function to log() as a shortcut to not have to write the level each time.
+    
+    Refer to log() for the variable purposes'''
+    if v == None:
+        print('NOT ENOUGH ARGUMENTS! forgot to put a log file!')
+        return
+
+    v = str(v)
+    log(filename, v, '[FATAL]:', showTime, isHeader, doPrinting, file, pos)
 
 def end_log(filename:str):
     try:
