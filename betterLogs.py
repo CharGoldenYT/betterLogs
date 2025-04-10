@@ -13,6 +13,7 @@ version = '2h'
 
 def create_logFile(filename:str, beforeBeginning:str = ''):
 
+    print('You are using the old version of betterLogs, please refer to https://github.com/CharGoldenYT/betterLogs for how to use the new logging system as this will be removed in a future update')
     r'''Creates a log file with a given filename, and writes a header to it'''
 
     try:
@@ -23,6 +24,7 @@ def create_logFile(filename:str, beforeBeginning:str = ''):
        frameinfo = getframeinfo(currentframe()); print('[' + str(frameinfo.filename) + '] [' + str(frameinfo.lineno) + '] Error with file"' + filename + '": "' + str(e) + '"')
 
 def log(filename:str, log:str = None, level:str = '', showTime:bool = True, isHeader:bool = False, doPrinting:bool = True, file:str = '', pos:int = 0):
+    print('You are using the old version of betterLogs, please refer to https://github.com/CharGoldenYT/betterLogs for how to use the new logging system as this will be removed in a future update')
 
     r'''This Function writes a log with the given level and string to write to the given file.
 
@@ -71,6 +73,7 @@ def log(filename:str, log:str = None, level:str = '', showTime:bool = True, isHe
         print('NOT ENOUGH ARGUMENTS! forgot to put a log file!')
 
 def log_info(filename:str, v:any = None, showTime:bool = True, isHeader:bool = False, doPrinting:bool = True, file:str = '', pos:int = 0):
+    print('You are using the old version of betterLogs, please refer to https://github.com/CharGoldenYT/betterLogs for how to use the new logging system as this will be removed in a future update')
 
     r'''Redirect function to log() as a shortcut to not have to write the level each time.
     
@@ -83,6 +86,7 @@ def log_info(filename:str, v:any = None, showTime:bool = True, isHeader:bool = F
     log(filename, v, '[INFO]:', showTime, isHeader, doPrinting, file, pos)
 
 def log_warning(filename:str, v:any = None, showTime:bool = True, isHeader:bool = False, doPrinting:bool = True, file:str = '', pos:int = 0):
+    print('You are using the old version of betterLogs, please refer to https://github.com/CharGoldenYT/betterLogs for how to use the new logging system as this will be removed in a future update')
 
     r'''Redirect function to log() as a shortcut to not have to write the level each time.
     
@@ -95,12 +99,14 @@ def log_warning(filename:str, v:any = None, showTime:bool = True, isHeader:bool 
     log(filename, v, '[WARN]:', showTime, isHeader, doPrinting, file, pos)
 
 def log_warn(filename:str, v:any = None, showTime:bool = True, isHeader:bool = False, doPrinting:bool = True, file:str = '', pos:int = 0):
+    print('You are using the old version of betterLogs, please refer to https://github.com/CharGoldenYT/betterLogs for how to use the new logging system as this will be removed in a future update')
 
     r'''Redirect function to log_warning() as a shortcut'''
 
     log_warning(filename, v, showTime, isHeader, doPrinting, file, pos)
 
 def log_error(filename:str, v:any = None, showTime:bool = True, isHeader:bool = False, doPrinting:bool = True, file:str = '', pos:int = 0):
+    print('You are using the old version of betterLogs, please refer to https://github.com/CharGoldenYT/betterLogs for how to use the new logging system as this will be removed in a future update')
 
     r'''Redirect function to log() as a shortcut to not have to write the level each time.
     
@@ -113,12 +119,14 @@ def log_error(filename:str, v:any = None, showTime:bool = True, isHeader:bool = 
     log(filename, v, '[ERR]:', showTime, isHeader, doPrinting, file, pos)
 
 def log_err(filename:str, v:any = None, showTime:bool = True, isHeader:bool = False, doPrinting:bool = True, file:str = '', pos:int = 0):
+    print('You are using the old version of betterLogs, please refer to https://github.com/CharGoldenYT/betterLogs for how to use the new logging system as this will be removed in a future update')
 
     r'''Redirect function to log_error() as a shortcut'''
 
     log_error(filename, v, showTime, isHeader, doPrinting, file, pos)
 
 def log_critical(filename:str, v:any = None, showTime:bool = True, isHeader:bool = False, doPrinting:bool = True, file:str = '', pos:int = 0):
+    print('You are using the old version of betterLogs, please refer to https://github.com/CharGoldenYT/betterLogs for how to use the new logging system as this will be removed in a future update')
 
     r'''Redirect function to log() as a shortcut to not have to write the level each time.
     
@@ -131,6 +139,7 @@ def log_critical(filename:str, v:any = None, showTime:bool = True, isHeader:bool
     log(filename, v, '[CRITICAL]:', showTime, isHeader, doPrinting, file, pos)
 
 def log_fatal(filename:str, v:any = None, showTime:bool = True, isHeader:bool = False, doPrinting:bool = True, file:str = '', pos:int = 0):
+    print('You are using the old version of betterLogs, please refer to https://github.com/CharGoldenYT/betterLogs for how to use the new logging system as this will be removed in a future update')
 
     r'''Redirect function to log() as a shortcut to not have to write the level each time.
     
@@ -143,6 +152,7 @@ def log_fatal(filename:str, v:any = None, showTime:bool = True, isHeader:bool = 
     log(filename, v, '[FATAL]:', showTime, isHeader, doPrinting, file, pos)
 
 def end_log(filename:str):
+    print('You are using the old version of betterLogs, please refer to https://github.com/CharGoldenYT/betterLogs for how to use the new logging system as this will be removed in a future update')
     try:
         logging = open(filename, 'a'); logging.write('<!--  END OF LOG  -->'); logging.close()
     except Exception as e:
