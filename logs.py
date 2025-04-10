@@ -17,7 +17,7 @@ class bcolors:
 
 class Logging:
 
-    version:str = '3.0'
+    version:str = '3.1'
     filename:str = 'log.txt'
     allowPrinting:bool = False
     logfile_lock:TextIOWrapper = null
@@ -74,27 +74,27 @@ class Logging:
     def log_header(self, log:str, level:str = '', includeTimestamps:bool = true,  fileFrom:str = null, pos:int = 0):
         self.log(log, level, includeTimestamps, true, fileFrom, pos)
 
-    def log_info(self, log:str, includeTimestamps:str, fileFrom:str = null, pos:int = 0):
+    def log_info(self, log:str, includeTimestamps:bool, fileFrom:str = null, pos:int = 0):
         self.log_header(log, 'info', includeTimestamps, fileFrom, pos)
 
-    def log_error(self, log:str, includeTimestamps:str, fileFrom:str = null, pos:int = 0):
+    def log_error(self, log:str, includeTimestamps:bool, fileFrom:str = null, pos:int = 0):
         self.log(log, 'error', includeTimestamps, false, fileFrom, pos)
 
-    def log_err(self, log:str, includeTimestamps:str, fileFrom:str = null, pos:int = 0):
+    def log_err(self, log:str, includeTimestamps:bool, fileFrom:str = null, pos:int = 0):
         print(bcolors.WARNING + '[WARNING ]:betterLogs.py:80:log_err() is deprecated! use log_error() instead')
         self.log_error(log, includeTimestamps, fileFrom, pos)
 
-    def log_warning(self, log:str, includeTimestamps:str, fileFrom:str = null, pos:int = 0):
+    def log_warning(self, log:str, includeTimestamps:bool, fileFrom:str = null, pos:int = 0):
         self.log(log, 'warn', includeTimestamps, false, fileFrom, pos)
 
-    def log_warn(self, log:str, includeTimestamps:str, fileFrom:str = null, pos:int = 0):
+    def log_warn(self, log:str, includeTimestamps:bool, fileFrom:str = null, pos:int = 0):
         print(bcolors.WARNING + '[WARNING ]:betterLogs.py:87:log_warn() is deprecated! use log_warning() instead')
         self.log_warning(log, includeTimestamps, fileFrom, pos)
 
-    def log_critical(self, log:str, includeTimestamps:str, fileFrom:str = null, pos:int = 0):
+    def log_critical(self, log:str, includeTimestamps:bool, fileFrom:str = null, pos:int = 0):
         self.log(log, 'critical', includeTimestamps, false, fileFrom, pos)
 
-    def log_fatal(self, log:str, includeTimestamps:str, fileFrom:str = null, pos:int = 0):
+    def log_fatal(self, log:str, includeTimestamps:bool, fileFrom:str = null, pos:int = 0):
         self.log(log, 'fatal', includeTimestamps, false, fileFrom, pos)
 
     def close(self):
