@@ -31,7 +31,7 @@ class Logging:
         import os
         
         try:
-            os.makedirs('betterLogs')
+            os.makedirs(f'betterLogs_{self.version.replace('.', '-')}')
         except OSError as e:
             if e.errno != 17:
                 print(f'Could not create log directory! "{str(e)}" make sure you have write access')
