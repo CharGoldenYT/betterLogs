@@ -18,11 +18,11 @@ class bcolors:
 class Logging:
 
     version:str = '3.1h'
-    filename:str = 'log.xml'
+    filename:str = f'betterLogs_{version.replace('.', '-')}/log.xml'
     allowPrinting:bool = False
 
     def __init__(self, filename:str, beforeBeginning:str = '', allowPrinting:bool = true):
-        self.filename = 'betterLogs/filename'
+        self.filename = f'betterLogs_{self.version.replace('.', '-')}/{filename}'
         self.createDir()
         self.write(beforeBeginning + f'\n<!-- Log Generator: "Better Logs V{self.version}" | Better Logs by Char @annyconducter on Discord | https://github.com/CharGoldenYT/betterLogs -->\n<!-- START OF LOG -->\n')
         return
