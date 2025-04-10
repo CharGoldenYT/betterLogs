@@ -4,9 +4,11 @@ Made to replace Python's importable Logging lib because it didnt work how i want
 
 # USAGE
 
-Simply put "betterLogs.py" in the directory where your other python scripts are and do ```python
+Simply put "betterLogs.py" in the directory where your other python scripts are and do 
+```python
 from betterLogs import *
-``` to import all log functions
+``` 
+to import all log functions
 
 The name of the repo has been changed to allow for making a git submodule that can be imported by Python directly, if made a git submodule:
 
