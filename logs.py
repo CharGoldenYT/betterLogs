@@ -23,11 +23,12 @@ class Logging:
 
     def __init__(self, filename:str, beforeBeginning:str = '', allowPrinting:bool = true):
         self.filename = f'betterLogs_{self.version.replace('.', '-')}/{filename}'
-        self.createDir()
-        self.write(beforeBeginning + f'\n<!-- Log Generator: "Better Logs V{self.version}" | Better Logs by Char @annyconducter on Discord | https://github.com/CharGoldenYT/betterLogs -->\n<!-- START OF LOG -->\n')
+        self._createDir()
+        self.allowPrinting = allowPrinting
+        self._write(beforeBeginning + f'\n<!-- Log Generator: "Better Logs V{self.version}" | Better Logs by Char @annyconducter on Discord | https://github.com/CharGoldenYT/betterLogs -->\n<!-- START OF LOG -->\n')
         return
     
-    def createDir(self):
+    def _createDir(self):
         import os
         
         try:
@@ -37,13 +38,13 @@ class Logging:
                 print(f'Could not create log directory! "{str(e)}" make sure you have write access')
                 exit(1)
 
-    def write(self, content:str):
+    def _write(self, content:str):
         filename = self.filename
         logfile_lock = open(filename, 'a')
         logfile_lock.write(content)
         logfile_lock.close()
 
-    def levelToString(level:str) -> str:
+    def _levelToString(self, level:str) -> str:
         level = level.lower()
 
         color = '[MISC    ]'
@@ -66,7 +67,7 @@ class Logging:
         if level == 'err' or level == 'error':color = bcolors.FAIL + '[ERROR   ]:'
         if level == 'critical':color = bcolors.FAIL + '[CRITICAL]:'
         if level == 'fatal':color = bcolors.FAIL + '[FATAL   ]:'
-        if isHeader: color = bcolors.HEADER + '[INFO    ]'
+        if isHeader: color = bcolors.HEADER + '[INFO    ]:'
 
         if not includeTimestamp:
             timeString = ''
@@ -76,11 +77,11 @@ class Logging:
         if fileFrom != '':
             fileString = fileFrom + ':' + str(pos) + ':'
 
-        logString = timeString + f'"{fileString + log}"'
+        logString = self._levelToString(level) + timeString + f'"{fileString + log}"'
 
         if self.allowPrinting: print(color + logString)
 
-        self.write('<!-- ' + logString + ' -->\n')
+        self._write('<!-- ' + logString.replace(fileString, '') + ' -->\n')
 
     def log_header(self, log:str, level:str, includeTimestamps:bool = true,  fileFrom:str = '', pos:int = 0):
         self.log(log, level, includeTimestamps, true, fileFrom, pos)
@@ -109,4 +110,4 @@ class Logging:
         self.log(log, 'fatal', includeTimestamps, false, fileFrom, pos)
 
     def close(self):
-        self.write('<!--  END OF LOG  -->')
+        self._write('<!--  END OF LOG  -->')
