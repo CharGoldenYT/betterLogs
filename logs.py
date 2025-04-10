@@ -76,11 +76,11 @@ class Logging:
         if fileFrom != '':
             fileString = fileFrom + ':' + str(pos) + ':'
 
-        logString = timeString + fileString + log
+        logString = timeString + f'"{fileString + log}"'
 
         if self.allowPrinting: print(color + logString)
 
-        self.write('<!-- "' + logString + '" -->\n')
+        self.write('<!-- ' + logString + ' -->\n')
 
     def log_header(self, log:str, level:str, includeTimestamps:bool = true,  fileFrom:str = '', pos:int = 0):
         self.log(log, level, includeTimestamps, true, fileFrom, pos)
