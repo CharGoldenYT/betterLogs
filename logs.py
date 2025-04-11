@@ -21,7 +21,7 @@ r = 'r'
 
 class Logging:
 
-    version:str = '3.1h'
+    version:str = '3.2'
     filename:str = f'betterLogs_{version.replace('.', '-')}/log.xml'
     allowPrinting:bool = False
 
@@ -29,7 +29,7 @@ class Logging:
         self.filename = f'betterLogs_{self.version.replace('.', '-')}/{filename}'
         self._createDir()
         self.allowPrinting = allowPrinting
-        self._write(beforeBeginning + f'\n<!-- Log Generator: "Better Logs V{self.version}" | Better Logs by Char @annyconducter on Discord | https://github.com/CharGoldenYT/betterLogs -->\n<!-- START OF LOG -->\n<logFile>\n')
+        self._write(beforeBeginning + f'\n<!-- Log Generator: "Better Logs V{self.version}" | Better Logs by Char @chargoldenyt on Discord | https://github.com/CharGoldenYT/betterLogs -->\n<!-- START OF LOG -->\n<logFile>\n')
         return
 
     def _set_filename(self, filename:str):
