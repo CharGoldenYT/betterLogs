@@ -21,7 +21,7 @@ r = 'r'
 
 class Logging:
 
-    version:str = '3.2'
+    version:str = '3.2h'
     filename:str = f'betterLogs_{version.replace('.', '-')}/log.xml'
     allowPrinting:bool = False
 
@@ -93,7 +93,7 @@ class Logging:
         if fileFrom != '':
             fileString = fileFrom + ':' + str(pos) + ':'
 
-        logString = self._levelToString(level) + timeString + f"'{fileString + log}'"
+        logString = self._levelToString(level) + timeString + f"'{fileString + log}'".replace('"', "'").replace('<', "[").replace('>', ']')
 
         if self.allowPrinting: print(color + logString)
 
