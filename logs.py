@@ -15,6 +15,10 @@ class bcolors:
     FAIL = '\033[91m'
     ENDC = '\033[0m'
 
+a = 'a'
+w = 'w'
+r = 'r'
+
 class Logging:
 
     version:str = '3.1h'
@@ -25,9 +29,21 @@ class Logging:
         self.filename = f'betterLogs_{self.version.replace('.', '-')}/{filename}'
         self._createDir()
         self.allowPrinting = allowPrinting
-        self._write(beforeBeginning + f'\n<!-- Log Generator: "Better Logs V{self.version}" | Better Logs by Char @annyconducter on Discord | https://github.com/CharGoldenYT/betterLogs -->\n<!-- START OF LOG -->\n')
+        self._write(beforeBeginning + f'\n<!-- Log Generator: "Better Logs V{self.version}" | Better Logs by Char @annyconducter on Discord | https://github.com/CharGoldenYT/betterLogs -->\n<!-- START OF LOG -->\n<logFile>\n')
         return
-    
+
+    def _set_filename(self, filename:str):
+        oldFile = open(self.filename, r)
+        oldFileStr = oldFile.read()
+        oldFile.close()
+        import os; os.remove(self.filename)
+
+        self.filename = filename
+
+        newFile = open(filename, w)
+        newFile.write(oldFileStr)
+        newFile.close()
+
     def _createDir(self):
         import os
         
@@ -62,12 +78,12 @@ class Logging:
 
         color:str
         level = level.lower()
-        if level == 'info':color = bcolors.OKBLUE + '[INFO    ]:'
-        if level == 'warn' or level == 'warning':color = bcolors.WARNING + '[WARNING ]:'
-        if level == 'err' or level == 'error':color = bcolors.FAIL + '[ERROR   ]:'
-        if level == 'critical':color = bcolors.FAIL + '[CRITICAL]:'
-        if level == 'fatal':color = bcolors.FAIL + '[FATAL   ]:'
-        if isHeader: color = bcolors.HEADER + '[INFO    ]:'
+        if level == 'info':color = bcolors.OKBLUE
+        if level == 'warn' or level == 'warning':color = bcolors.WARNING
+        if level == 'err' or level == 'error':color = bcolors.FAIL
+        if level == 'critical':color = bcolors.FAIL
+        if level == 'fatal':color = bcolors.FAIL
+        if isHeader: color = bcolors.HEADER
 
         if not includeTimestamp:
             timeString = ''
@@ -77,11 +93,11 @@ class Logging:
         if fileFrom != '':
             fileString = fileFrom + ':' + str(pos) + ':'
 
-        logString = self._levelToString(level) + timeString + f'"{fileString + log}"'
+        logString = self._levelToString(level) + timeString + f"'{fileString + log}'"
 
         if self.allowPrinting: print(color + logString)
 
-        self._write('<!-- ' + logString.replace(fileString, '') + ' -->\n')
+        self._write('   <log value="' + logString.replace(fileString, '') + '" />\n')
 
     def log_header(self, log:str, level:str, includeTimestamps:bool = true,  fileFrom:str = '', pos:int = 0):
         self.log(log, level, includeTimestamps, true, fileFrom, pos)
@@ -110,4 +126,4 @@ class Logging:
         self.log(log, 'fatal', includeTimestamps, false, fileFrom, pos)
 
     def close(self):
-        self._write('<!--  END OF LOG  -->')
+        self._write('</logFile>\n<!--  END OF LOG  -->')
