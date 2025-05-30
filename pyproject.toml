@@ -3,7 +3,7 @@ requires = ["hatchling >= 1.26"]
 build-backend = "hatchling.build"
 
 [project]
-name="betterlogs"
+name="chars-betterlogs"
 version="3.2.5"
 authors=[{name="CharGoldenYT", email=""}]
 description="A project started to fix a problem I was having with the default python logging library"

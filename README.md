@@ -4,9 +4,9 @@ A project started to fix a problem I was having with the default python logging 
 
 ## USAGE
 
-Simply install it with `pip install betterlogs` and add it to your code with:
+Simply install it with `pip install chars_betterlogs` and add it to your code with:
 ```python
-from logs import Logging
+from chars_betterlogs.logs import Logging
 ```
 
 then make a variable:
@@ -19,7 +19,7 @@ Tada you now have a callable logger!
 
 ### Example Script
 ```python
-from logs import Logging
+from chars_betterlogs.logs import Logging
 from datetime import datetime
 
 logger:Logging = Logging('log_' + str(datetime.today().strftime('%d_%m_%Y-%H_%M_%S')) + '.log')
