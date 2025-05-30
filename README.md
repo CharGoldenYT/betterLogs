@@ -4,7 +4,7 @@ A project started to fix a problem I was having with the default python logging 
 
 ## USAGE
 
-Simply put logs.py into the folder you run your main script from and import the library:
+Simply install it with `pip install betterlogs` and add it to your code with:
 ```python
 from logs import Logging
 ```

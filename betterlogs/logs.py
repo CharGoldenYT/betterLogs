@@ -76,14 +76,15 @@ class Logging:
         time = str(datetime.today().strftime('%d-%m-%Y %H:%M:%S'))
         timeString = '[' + time + ']: '
 
-        color:str
-        level = level.lower()
-        if level == 'info':color = bcolors.OKBLUE
-        if level == 'warn' or level == 'warning':color = bcolors.WARNING
-        if level == 'err' or level == 'error':color = bcolors.FAIL
-        if level == 'critical':color = bcolors.FAIL
-        if level == 'fatal':color = bcolors.FAIL
-        if isHeader: color = bcolors.HEADER
+        color:str = bcolors.HEADER
+        
+        if not isHeader:
+            level = level.lower()
+            if level == 'info':color = bcolors.OKBLUE
+            if level == 'warn' or level == 'warning':color = bcolors.WARNING
+            if level == 'err' or level == 'error':color = bcolors.FAIL
+            if level == 'critical':color = bcolors.FAIL
+            if level == 'fatal':color = bcolors.FAIL
 
         if not includeTimestamp:
             timeString = ''
