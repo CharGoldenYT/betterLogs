@@ -1,6 +1,7 @@
 from logs import Logging
 import betterLogs
-__all__ = ["Logging", "betterLogs", "getLogFile"]
+import globalDefs as chars_betterlogs_globalDefs
+__all__ = ["Logging", "betterLogs", "getLogFile", "chars_betterlogs_globalDefs"]
 
 def getLogFile(logging:Logging) -> str:
     rawXml = open(logging.filename, 'r')
