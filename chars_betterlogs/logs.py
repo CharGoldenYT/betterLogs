@@ -1,11 +1,7 @@
 from datetime import datetime
 from inspect import currentframe, getframeinfo
 from io import TextIOWrapper
-
-# Shortcuts for my Haxe self
-false:bool = False
-true:bool = True
-null:None = None
+from globalDefs import *
 
 class bcolors:
     HEADER = '\033[95m'
