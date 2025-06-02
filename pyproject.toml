@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name="chars-betterlogs"
-version="3.2.7"
+version="3.2.8"
 authors=[{name="CharGoldenYT", email=""}]
 description="A project started to fix a problem I was having with the default python logging library"
 readme="README.md"
