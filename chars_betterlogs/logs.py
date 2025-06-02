@@ -1,7 +1,12 @@
 from datetime import datetime
 from inspect import currentframe, getframeinfo
 from io import TextIOWrapper
-from globalDefs import *
+from .semver import SemVer
+
+# Shortcuts for my Haxe self
+false:bool = False
+true:bool = True
+null:None = None
 
 class bcolors:
     HEADER = '\033[95m'
@@ -17,15 +22,15 @@ r = 'r'
 
 class Logging:
 
-    version:str = '3.2h'
+    version:SemVer = SemVer(3, 2, 7)
     filename:str = f'betterLogs_{version.replace('.', '-')}/log.xml'
     allowPrinting:bool = False
 
     def __init__(self, filename:str, beforeBeginning:str = '', allowPrinting:bool = true):
-        self.filename = f'betterLogs_{self.version.replace('.', '-')}/{filename}'
+        self.filename = f'betterLogs_{self.version.toString().replace('.', '-')}/{filename}'
         self._createDir()
         self.allowPrinting = allowPrinting
-        self._write(beforeBeginning + f'\n<!-- Log Generator: "Better Logs V{self.version}" | Better Logs by Char @chargoldenyt on Discord | https://github.com/CharGoldenYT/betterLogs -->\n<!-- START OF LOG -->\n<logFile>\n')
+        self._write(beforeBeginning + f'\n<!-- Log Generator: "Better Logs V{self.version.toString()}" | Better Logs by Char @chargoldenyt on Discord | https://github.com/CharGoldenYT/betterLogs -->\n<!-- START OF LOG -->\n<logFile>\n')
         return
 
     def _set_filename(self, filename:str):
@@ -36,7 +41,16 @@ class Logging:
 
         self.filename = filename
 
-        newFile = open(filename, w)
+        path = filename.split('/')
+        filename = path[path.__len__()-1]
+        basePath = ''
+        for p in path:
+            if (p != filename):
+                basePath += p + '/'
+                try: os.mkdir(p)
+                except: pass
+        
+        newFile = open(self.filename, w)
         newFile.write(oldFileStr)
         newFile.close()
 
@@ -44,7 +58,7 @@ class Logging:
         import os
         
         try:
-            os.makedirs(f'betterLogs_{self.version.replace('.', '-')}')
+            os.makedirs(f'betterLogs_{self.version.toString().replace('.', '-')}')
         except OSError as e:
             if e.errno != 17:
                 print(f'Could not create log directory! "{str(e)}" make sure you have write access')
