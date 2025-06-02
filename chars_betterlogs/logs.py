@@ -23,7 +23,7 @@ r = 'r'
 class Logging:
 
     version:SemVer = SemVer(3, 2, 7)
-    filename:str = f'betterLogs_{version.replace('.', '-')}/log.xml'
+    filename:str = f'betterLogs_{version.toString().replace('.', '-')}/log.xml'
     allowPrinting:bool = False
 
     def __init__(self, filename:str, beforeBeginning:str = '', allowPrinting:bool = true):
