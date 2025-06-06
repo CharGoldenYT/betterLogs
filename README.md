@@ -14,6 +14,6 @@ logger:Logging = Logging("filename.extension", "<!-- This goes before the logs! 
 logger._set_filename("path/to/filename.extension")
 ```
 
-Tada! Now you have a competent logger that constantly writes to the same file
+Tada! Now you have a competent logger that writes to the same file on every logging call!
 
 ## IMPORTANT: ALWAYS RUN `logger.close()` BEFORE LETTING YOUR SCRIPT EXIT!
