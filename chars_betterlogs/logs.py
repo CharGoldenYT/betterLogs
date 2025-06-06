@@ -28,6 +28,7 @@ class Logging:
         self._createDir(filename)
         self.allowPrinting = allowPrinting
         self.append = append
+        self._initWrite()
         self._write(beforeBeginning + f'\n<!-- Log Generator: "Better Logs V{self._version.__str__()}" | Better Logs by Char @chargoldenyt on Discord | https://github.com/CharGoldenYT/betterLogs -->\n<!-- START OF LOG -->\n<logFile>\n')
         return
 
@@ -51,8 +52,8 @@ class Logging:
                 basePath += p + '/'
                 try: os.mkdir(p)
                 except: continue
-        
-        newFile = open(self.filename, self.isAppend())
+        self._initWrite()
+        newFile = open(self.filename, "a")
         newFile.write(oldFileStr)
         newFile.close()
 
@@ -78,10 +79,17 @@ class Logging:
                     else: continue
         
         
+    def _initWrite(self):
+        filename = self.filename
+        
+        testFile = open(filename, "a")
+        size  = testFile.__sizeof__()
+        if not self.isAppend() == "a" and size > 1: testFile.truncate(0)
+        testFile.close()
 
     def _write(self, content:str):
         filename = self.filename
-        logfile_lock = open(filename, self.isAppend())
+        logfile_lock = open(filename, 'a')
         logfile_lock.write(content)
         logfile_lock.close()
 
