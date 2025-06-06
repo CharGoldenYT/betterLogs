@@ -27,6 +27,7 @@ class Logging:
             self.filename = filename
         self._createDir(filename)
         self.allowPrinting = allowPrinting
+        self.append = append
         self._write(beforeBeginning + f'\n<!-- Log Generator: "Better Logs V{self._version.__str__()}" | Better Logs by Char @chargoldenyt on Discord | https://github.com/CharGoldenYT/betterLogs -->\n<!-- START OF LOG -->\n<logFile>\n')
         return
 
@@ -80,7 +81,7 @@ class Logging:
 
     def _write(self, content:str):
         filename = self.filename
-        logfile_lock = open(filename, 'a')
+        logfile_lock = open(filename, self.isAppend())
         logfile_lock.write(content)
         logfile_lock.close()
 
