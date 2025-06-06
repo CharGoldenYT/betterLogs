@@ -1,4 +1,4 @@
-# Char's Better Python Logger
+# Char's Better Logs
 
 A project started to fix a problem I was having with the default python logging library
 

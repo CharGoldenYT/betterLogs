@@ -56,8 +56,8 @@ class Logging:
         newFile.close()
 
     def isAppend(self)->str:
-        if self.append: return 'a'
-        else: return "w"
+        if self.append == True: return "a"
+        return "w"
 
     def _createDir(self, path:str):
         import os
