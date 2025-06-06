@@ -87,7 +87,7 @@ class Logging:
     def _levelToString(self, level:str) -> str:
         level = level.lower()
 
-        color = '[MISC    ]'
+        color = '[MISC    ]:'
         if level == 'info':color = '[INFO    ]:'
         if level == 'warn' or level == 'warning':color = '[WARNING ]:'
         if level == 'err' or level == 'error':color = '[ERROR   ]:'
