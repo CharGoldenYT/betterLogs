@@ -1,29 +1,19 @@
-# Char's Better Python Logger
+# Char's Better Logs (Classic Branch)
 
-A project started to fix a problem I was having with the default python logging library
+This is the last, non pip packaged, version of betterLogs!
 
-## USAGE
+This branch is not maintained and only serves to save people time from having to run `pip install chars-betterlogs` by including logs.py directly with your python project!
 
-Simply put logs.py into the folder you run your main script from and import the library:
+# USAGE
+
+First drop logs.py somewhere in your folder and import it as you would a normal script (i.e. `from path.to.logs import Logging`) then do the following to set up the logger!
+
 ```python
-from logs import Logging
+logger:Logging = Logging("filename.extension", "<!-- This goes before the logs! -->, True)
+# If you don't want it in the betterLogs-version folder make sure to do the following!:
+logger._set_filename("path/to/filename.extension")
 ```
 
-then make a variable:
-```python
-#                         The Filename         String to add before the log        Whether to print the log (Defaults to True)
-logger:Logging = Logging('filename.log', 'This gets added before the log starts!', False)
-```
+Tada! Now you have a competent logger that constantly writes to the same file
 
-Tada you now have a callable logger!
-
-### Example Script
-```python
-from logs import Logging
-from datetime import datetime
-
-logger:Logging = Logging('log_' + str(datetime.today().strftime('%d_%m_%Y-%H_%M_%S')) + '.log')
-
-logging.log_info('yipee!')
-logging.close() # Don't forget to end the log file before the script ends!
-```
+## IMPORTANT: ALWAYS RUN `logger.close()` BEFORE LETTING YOUR SCRIPT EXIT!
