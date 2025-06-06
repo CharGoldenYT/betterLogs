@@ -10,7 +10,7 @@ else: print(f"{bcolors.HEADER}Reminder logger.version was deprecated and will ha
 logger.log("Test1", "", True, True, "YoMum.py", 9)
 
 if hasattr(logger, "log_warn"): logger.log_warn("YO THIS SHIT `log_warn()` REMOVED IN 3.3.1!")
-logger.log_warn("Test warning!", True, "YoMum.py", 11)
+logger.log_warning("Test warning!", True, "YoMum.py", 11)
 
 if hasattr(logger, "log_err"): logger.log_err("YO THIS SHIT `log_err()` REMOVED IN 3.3.1!")
 logger.log_error("Test Error!", True, "YoMum.py", 15)
