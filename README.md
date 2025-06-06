@@ -4,7 +4,7 @@ A project started to fix a problem I was having with the default python logging 
 
 ## USAGE
 
-Simply install it with `pip install chars_betterlogs` and add it to your code with:
+Simply install it with `pip install chars-betterlogs` and add it to your code with:
 ```python
 from chars_betterlogs.logs import Logging
 ```

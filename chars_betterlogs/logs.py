@@ -3,11 +3,6 @@ from inspect import currentframe, getframeinfo
 from io import TextIOWrapper
 from .semver import SemVer
 
-# Shortcuts for my Haxe self
-false:bool = False
-true:bool = True
-null:None = None
-
 class bcolors:
     HEADER = '\033[95m'
     OKBLUE = '\033[94m'
@@ -21,17 +16,23 @@ w = 'w'
 r = 'r'
 
 class Logging:
-
-    version:SemVer = SemVer(3, 2, 7)
-    filename:str = f'betterLogs_{version.toString().replace('.', '-')}/log.xml'
+    _version:SemVer = SemVer(3, 3, 0, '-PreRelease')
+    version = _version
+    filename:str = f'betterLogs_{_version.toString().replace('.', '-')}/log.xml'
     allowPrinting:bool = False
+    append:bool = False
 
-    def __init__(self, filename:str, beforeBeginning:str = '', allowPrinting:bool = true):
-        self.filename = f'betterLogs_{self.version.toString().replace('.', '-')}/{filename}'
-        self._createDir()
+    def __init__(self, filename:str = None, beforeBeginning:str = '', allowPrinting:bool = True, append:bool = False):
+        if filename != None:
+            self.filename = filename
+        self._createDir(filename)
         self.allowPrinting = allowPrinting
-        self._write(beforeBeginning + f'\n<!-- Log Generator: "Better Logs V{self.version.toString()}" | Better Logs by Char @chargoldenyt on Discord | https://github.com/CharGoldenYT/betterLogs -->\n<!-- START OF LOG -->\n<logFile>\n')
+        self._write(beforeBeginning + f'\n<!-- Log Generator: "Better Logs V{self._version.__str__()}" | Better Logs by Char @chargoldenyt on Discord | https://github.com/CharGoldenYT/betterLogs -->\n<!-- START OF LOG -->\n<logFile>\n')
         return
+
+    def getVersion(self, isStr:bool = False)->(SemVer | str):
+        if isStr: return self._version.__str__()
+        else: return self._version
 
     def _set_filename(self, filename:str):
         oldFile = open(self.filename, r)
@@ -45,24 +46,37 @@ class Logging:
         filename = path[path.__len__()-1]
         basePath = ''
         for p in path:
-            if (p != filename):
+            if p != filename:
                 basePath += p + '/'
                 try: os.mkdir(p)
-                except: pass
+                except: continue
         
-        newFile = open(self.filename, w)
+        newFile = open(self.filename, self.isAppend())
         newFile.write(oldFileStr)
         newFile.close()
 
-    def _createDir(self):
+    def isAppend(self)->str:
+        if self.append: return 'a'
+        else: return "w"
+
+    def _createDir(self, path:str):
         import os
+        splitPath:list[str] = []
+        if path.__contains__('/'):
+            splitPath = path.split('/')
+            splitPath.pop()
+
+        if splitPath.__len__() > 0:
+            for p in  splitPath:
+                try:
+                    os.makedirs(p.replace('.', '-'))
+                except OSError as e:
+                    if e.errno != 17:
+                        print(f'Could not create log directory! "{str(e)}" make sure you have write access')
+                        exit(1)
+                    else: continue
         
-        try:
-            os.makedirs(f'betterLogs_{self.version.toString().replace('.', '-')}')
-        except OSError as e:
-            if e.errno != 17:
-                print(f'Could not create log directory! "{str(e)}" make sure you have write access')
-                exit(1)
+        
 
     def _write(self, content:str):
         filename = self.filename
@@ -82,7 +96,7 @@ class Logging:
 
         return color
 
-    def log(self, log:str, level:str, includeTimestamp:bool = true, isHeader:bool = false, fileFrom:str = '', pos:int = 0):
+    def log(self, log:str, level:str, includeTimestamp:bool = True, isHeader:bool = False, fileFrom:str = '', pos:int = 0):
         time = str(datetime.today().strftime('%d-%m-%Y %H:%M:%S'))
         timeString = '[' + time + ']: '
 
@@ -110,31 +124,31 @@ class Logging:
 
         self._write('   <log value="' + logString.replace(fileString, '') + '" />\n')
 
-    def log_header(self, log:str, level:str, includeTimestamps:bool = true,  fileFrom:str = '', pos:int = 0):
-        self.log(log, level, includeTimestamps, true, fileFrom, pos)
+    def log_header(self, log:str, level:str, includeTimestamps:bool = True,  fileFrom:str = '', pos:int = 0):
+        self.log(log, level, includeTimestamps, True, fileFrom, pos)
 
-    def log_info(self, log:str, includeTimestamps:bool = true, fileFrom:str = '', pos:int = 0):
+    def log_info(self, log:str, includeTimestamps:bool = True, fileFrom:str = '', pos:int = 0):
         self.log_header(log, 'info', includeTimestamps, fileFrom, pos)
 
-    def log_error(self, log:str, includeTimestamps:bool = true, fileFrom:str = '', pos:int = 0):
-        self.log(log, 'error', includeTimestamps, false, fileFrom, pos)
+    def log_error(self, log:str, includeTimestamps:bool = True, fileFrom:str = '', pos:int = 0):
+        self.log(log, 'error', includeTimestamps, False, fileFrom, pos)
 
-    def log_err(self, log:str, includeTimestamps:bool = true, fileFrom:str = '', pos:int = 0):
+    def log_err(self, log:str, includeTimestamps:bool = True, fileFrom:str = '', pos:int = 0):
         print(bcolors.WARNING + '[WARNING ]:betterLogs.py:80:log_err() is deprecated! use log_error() instead')
         self.log_error(log, includeTimestamps, fileFrom, pos)
 
-    def log_warning(self, log:str, includeTimestamps:bool = true, fileFrom:str = '', pos:int = 0):
-        self.log(log, 'warn', includeTimestamps, false, fileFrom, pos)
+    def log_warning(self, log:str, includeTimestamps:bool = True, fileFrom:str = '', pos:int = 0):
+        self.log(log, 'warn', includeTimestamps, False, fileFrom, pos)
 
-    def log_warn(self, log:str, includeTimestamps:bool = true, fileFrom:str = '', pos:int = 0):
+    def log_warn(self, log:str, includeTimestamps:bool = True, fileFrom:str = '', pos:int = 0):
         print(bcolors.WARNING + '[WARNING ]:betterLogs.py:87:log_warn() is deprecated! use log_warning() instead')
         self.log_warning(log, includeTimestamps, fileFrom, pos)
 
-    def log_critical(self, log:str, includeTimestamps:bool = true, fileFrom:str = '', pos:int = 0):
-        self.log(log, 'critical', includeTimestamps, false, fileFrom, pos)
+    def log_critical(self, log:str, includeTimestamps:bool = True, fileFrom:str = '', pos:int = 0):
+        self.log(log, 'critical', includeTimestamps, False, fileFrom, pos)
 
-    def log_fatal(self, log:str, includeTimestamps:bool = true, fileFrom:str = '', pos:int = 0):
-        self.log(log, 'fatal', includeTimestamps, false, fileFrom, pos)
+    def log_fatal(self, log:str, includeTimestamps:bool = True, fileFrom:str = '', pos:int = 0):
+        self.log(log, 'fatal', includeTimestamps, False, fileFrom, pos)
 
     def close(self):
         self._write('</logFile>\n<!--  END OF LOG  -->')
