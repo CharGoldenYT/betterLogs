@@ -1,7 +1,8 @@
 from datetime import datetime
 from inspect import currentframe, getframeinfo
 from io import TextIOWrapper
-from .semver import SemVer
+from .internal.semver import SemVer
+from .internal.birdy import CheckTime, ScriptArgs
 
 class bcolors:
     HEADER = '\033[95m'
@@ -21,15 +22,28 @@ class Logging:
     filename:str = f'betterLogs_{_version.toString().replace('.', '-')}/log.xml'
     allowPrinting:bool = False
     append:bool = False
+    showHelp:bool = False # Change this to true if you want to show this help dialogue.
+    useCurScriptArgs:bool = False
+
+    def getLogFile(logging) -> str:
+        rawXml = open(logging.filename, 'r')
+        xml = rawXml.read(); rawXml.close()
+        return xml
 
     def __init__(self, filename:str = None, beforeBeginning:str = '', allowPrinting:bool = True, append:bool = False):
+        if ScriptArgs(self.useCurScriptArgs).containsHelp:
+            print("""Arguments (Char's BetterLogs):
+    -help :              Displays this message.
+    -testingScript_BLP : Forces the secret message to be added to logs (see `.internal.birdy.CheckTime`)""")
+    
+
         if filename != None:
             self.filename = filename
         self._createDir(filename)
         self.allowPrinting = allowPrinting
         self.append = append
         self._initWrite()
-        self._write(beforeBeginning + f'\n<!-- Log Generator: "Better Logs V{self._version.__str__()}" | Better Logs by Char @chargoldenyt on Discord | https://github.com/CharGoldenYT/betterLogs -->\n<!-- START OF LOG -->\n<logFile>\n')
+        self._write(beforeBeginning + CheckTime().message + f'\n<!-- Log Generator: "Better Logs V{self._version.__str__()}" | Better Logs by Char @chargoldenyt on Discord | https://github.com/CharGoldenYT/betterLogs -->\n<!-- START OF LOG -->\n<logFile>\n')
         return
 
     def getVersion(self, isStr:bool = False)->(SemVer | str):

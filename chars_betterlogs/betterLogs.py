@@ -1,13 +1,7 @@
 # Python's default importable logging lib doesn't QUITE work how i want it to, so i made a version that actually properly saves logs to a file while allowing for colors!
 from datetime import datetime
 from inspect import currentframe, getframeinfo
-class bcolors:
-    HEADER = '\033[95m'
-    OKBLUE = '\033[94m'
-    OKGREEN = '\033[92m'
-    WARNING = '\033[93m'
-    FAIL = '\033[91m'
-    ENDC = '\033[0m'
+from .internal.bcolors import bcolors
 
 version = '2h'
 
