@@ -31,10 +31,11 @@ class Logging:
         return xml
 
     def __init__(self, filename:str = None, beforeBeginning:str = '', allowPrinting:bool = True, append:bool = False):
-        if ScriptArgs(self.useCurScriptArgs).containsHelp:
-            print("""Arguments (Char's BetterLogs):
-    -help :              Displays this message.
-    -testingScript_BLP : Forces the secret message to be added to logs (see `.internal.birdy.CheckTime`)""")
+        if self.useCurScriptArgs:
+            if ScriptArgs(self.useCurScriptArgs).containsHelp:
+                print("""Arguments (Char's BetterLogs):
+        -help :              Displays this message.
+        -testingScript_BLP : Forces the secret message to be added to logs (see `.internal.birdy.CheckTime`)""")
     
 
         if filename != None:
