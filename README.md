@@ -24,6 +24,6 @@ from datetime import datetime
 
 logger:Logging = Logging('log_' + str(datetime.today().strftime('%d_%m_%Y-%H_%M_%S')) + '.log')
 
-logging.log_info('yipee!')
-logging.close() # Don't forget to end the log file before the script ends!
+logger.log_info('yipee!')
+logger.close() # Don't forget to end the log file before the script ends!
 ```
