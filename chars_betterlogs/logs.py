@@ -2,111 +2,64 @@ from datetime import datetime
 from inspect import currentframe, getframeinfo
 from io import TextIOWrapper
 from .internal.semver import SemVer
-from .internal.birdy import CheckTime, ScriptArgs
-
-class bcolors:
-    HEADER = '\033[95m'
-    OKBLUE = '\033[94m'
-    OKGREEN = '\033[92m'
-    WARNING = '\033[93m'
-    FAIL = '\033[91m'
-    ENDC = '\033[0m'
-
-a = 'a'
-w = 'w'
-r = 'r'
+from .internal.birdy import CheckTime
+from .internal.args import ScriptArgs
+from .internal.bcolors import bcolors
 
 class Logging:
-    _version:SemVer = SemVer(3, 3, 0, '-PreRelease')
-    version = _version
+    _version:SemVer = SemVer(4, 0, 0)
+    version:SemVer = _version
     filename:str = f'betterLogs_{_version.toString().replace('.', '-')}/log.xml'
     allowPrinting:bool = False
-    append:bool = False
     showHelp:bool = False # Change this to true if you want to show this help dialogue.
-    useCurScriptArgs:bool = False
-
-    def getLogFile(logging) -> str:
-        rawXml = open(logging.filename, 'r')
-        xml = rawXml.read(); rawXml.close()
-        return xml
-
-    def __init__(self, filename:str = None, beforeBeginning:str = '', allowPrinting:bool = True, append:bool = False):
-        if self.useCurScriptArgs:
-            if ScriptArgs(self.useCurScriptArgs).containsHelp:
+    allowArgs:bool = False
+    append:bool = False
+    
+    def __init__(self, filename:str, beforeBeginning:str = '', allowPrinting:bool = True, append:bool = False):
+        self.filename = filename; self.allowPrinting = allowPrinting; self.append = append
+        
+        if self.allowArgs:
+            if ScriptArgs(self.allowArgs).containsHelp:
                 print("""Arguments (Char's BetterLogs):
         -help :              Displays this message.
         -testingScript_BLP : Forces the secret message to be added to logs (see `.internal.birdy.CheckTime`)""")
-    
-
-        if filename != None:
-            self.filename = filename
         self._createDir(filename)
-        self.allowPrinting = allowPrinting
-        self.append = append
         self._initWrite()
         self._write(beforeBeginning + CheckTime().message + f'\n<!-- Log Generator: "Better Logs V{self._version.__str__()}" | Better Logs by Char @chargoldenyt on Discord | https://github.com/CharGoldenYT/betterLogs -->\n<!-- START OF LOG -->\n<logFile>\n')
         return
-
-    def getVersion(self, isStr:bool = False)->(SemVer | str):
-        if isStr: return self._version.__str__()
-        else: return self._version
-
-    def _set_filename(self, filename:str):
-        oldFile = open(self.filename, r)
-        oldFileStr = oldFile.read()
-        oldFile.close()
-        import os; os.remove(self.filename)
-
-        self.filename = filename
-
-        path = filename.split('/')
-        filename = path[path.__len__()-1]
-        basePath = ''
-        for p in path:
-            if p != filename:
-                basePath += p + '/'
-                try: os.mkdir(p)
-                except: continue
-        self._initWrite()
-        newFile = open(self.filename, "a")
-        newFile.write(oldFileStr)
-        newFile.close()
-
-    def isAppend(self)->str:
-        if self.append == True: return "a"
-        return "w"
-
-    def _createDir(self, path:str):
-        import os
-        splitPath:list[str] = []
-        if path.__contains__('/'):
-            splitPath = path.split('/')
-            splitPath.pop()
-
-        if splitPath.__len__() > 0:
-            for p in  splitPath:
-                try:
-                    os.makedirs(p.replace('.', '-'))
-                except OSError as e:
-                    if e.errno != 17:
-                        print(f'Could not create log directory! "{str(e)}" make sure you have write access')
-                        exit(1)
-                    else: continue
-        
-        
+    
     def _initWrite(self):
-        filename = self.filename
+        testfile = open(self.filename, 'a')
+        size = testfile.__sizeof__()
+        if not self.append and size > 1: testfile.truncate(0)
+        testfile.close()
         
-        testFile = open(filename, "a")
-        size  = testFile.__sizeof__()
-        if not self.isAppend() == "a" and size > 1: testFile.truncate(0)
-        testFile.close()
-
-    def _write(self, content:str):
-        filename = self.filename
-        logfile_lock = open(filename, 'a')
+    def _write(self, content:str): self.write(content) # TODO: make this not a redirect function
+        
+    def write(self, content:str):
+        logfile_lock = open(self.filename, 'a')
         logfile_lock.write(content)
         logfile_lock.close()
+
+    def changefile(self, filename:str):
+        prevlog = open(self.filename, "r")
+        s = prevlog.read()
+        prevlog.close()
+        import os; os.remove(self.filename)
+        
+        self.filename = filename
+        path = filename
+        pSplit = path.split("/")
+        path = ''
+        for p in pSplit:
+            path += p + '/'
+        try:
+            os.mkdir(path)
+        except OSError as e: lmao = ""
+        self._initWrite()
+        newlog = open(filename, "a")
+        newlog.write(s)
+        newlog.close()
 
     def _levelToString(self, level:str) -> str:
         level = level.lower()
@@ -176,3 +129,25 @@ class Logging:
 
     def close(self):
         self._write('</logFile>\n<!--  END OF LOG  -->')
+        
+    def getLogFile(logging) -> str:
+        rawXml = open(logging.filename, 'r')
+        xml = rawXml.read(); rawXml.close()
+        return xml
+
+    def _createDir(self, path:str):
+        import os
+        splitPath:list[str] = []
+        if path.__contains__('/'):
+            splitPath = path.split('/')
+            splitPath.pop()
+
+        if splitPath.__len__() > 0:
+            for p in  splitPath:
+                try:
+                    os.makedirs(p.replace('.', '-'))
+                except OSError as e:
+                    if e.errno != 17:
+                        print(f'Could not create log directory! "{str(e)}" make sure you have write access')
+                        exit(1)
+                    else: continue
