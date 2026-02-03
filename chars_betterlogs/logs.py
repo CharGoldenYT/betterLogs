@@ -1,4 +1,4 @@
-from datetime import datetime
+1from datetime import datetime
 from inspect import currentframe, getframeinfo
 from io import TextIOWrapper
 from .internal.semver import SemVer
@@ -64,12 +64,12 @@ class Logging:
     def _levelToString(self, level:str) -> str:
         level = level.lower()
 
-        color = '[MISC    ]:'
-        if level == 'info':color = '[INFO    ]:'
-        if level == 'warn' or level == 'warning':color = '[WARNING ]:'
-        if level == 'err' or level == 'error':color = '[ERROR   ]:'
-        if level == 'critical':color = '[CRITICAL]:'
-        if level == 'fatal':color = '[FATAL   ]:'
+        color = '[    MISC   ]:'
+        if level == 'info':color = '[    INFO   ]:'
+        if level == 'warn' or level == 'warning':color = '[  WARNING ]:'
+        if level == 'err' or level == 'error':color = '[   ERROR  ]:'
+        if level == 'critical':color = '[ CRITICAL ]:'
+        if level == 'fatal':color = '[   FATAL  ]:'
 
         return color
 
