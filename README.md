@@ -1,5 +1,8 @@
 # Char's Better Logs
 
+> [!TIP]
+> Install pre-release versions with my new project [PTGit](https://github.com/CharGoldenYT/PTGit)!
+
 A project started to fix a problem I was having with the default python logging library
 
 ## USAGE
