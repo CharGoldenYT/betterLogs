@@ -18,8 +18,6 @@ def create_logFile(filename:str, beforeBeginning:str = ''):
        frameinfo = getframeinfo(currentframe()); print('[' + str(frameinfo.filename) + '] [' + str(frameinfo.lineno) + '] Error with file"' + filename + '": "' + str(e) + '"')
 
 def log(filename:str, log:str = None, level:str = '', showTime:bool = True, isHeader:bool = False, doPrinting:bool = True, file:str = '', pos:int = 0):
-    print('This is the classic version of betterLogs made for KrillYouBot, please use logs.Logging.')
-
     r'''This Function writes a log with the given level and string to write to the given file.
 
     filename:String | Self explanatory
@@ -33,6 +31,8 @@ def log(filename:str, log:str = None, level:str = '', showTime:bool = True, isHe
     isHeader:Bool | Whether, if printing, to override the level color with the header tag
 
     doPrinting:Bool | Whether to also print the log.'''
+    print('This is the classic version of betterLogs made for KrillYouBot, please use logs.Logging.')
+
 
     if not log == None:
         time = str(datetime.today().strftime('%d-%m-%Y %H:%M:%S'))
@@ -67,11 +67,11 @@ def log(filename:str, log:str = None, level:str = '', showTime:bool = True, isHe
         print('NOT ENOUGH ARGUMENTS! forgot to put a log file!')
 
 def log_info(filename:str, v:any = None, showTime:bool = True, isHeader:bool = False, doPrinting:bool = True, file:str = '', pos:int = 0):
-    print('This is the classic version of betterLogs made for KrillYouBot, please use logs.Logging.')
-
     r'''Redirect function to log() as a shortcut to not have to write the level each time.
     
     Refer to log() for the variable purposes'''
+    print('This is the classic version of betterLogs made for KrillYouBot, please use logs.Logging.')
+
     if v == None:
         print('NOT ENOUGH ARGUMENTS! forgot to put a log file!')
         return
@@ -80,11 +80,11 @@ def log_info(filename:str, v:any = None, showTime:bool = True, isHeader:bool = F
     log(filename, v, '[INFO]:', showTime, isHeader, doPrinting, file, pos)
 
 def log_warning(filename:str, v:any = None, showTime:bool = True, isHeader:bool = False, doPrinting:bool = True, file:str = '', pos:int = 0):
-    print('This is the classic version of betterLogs made for KrillYouBot, please use logs.Logging.')
-
     r'''Redirect function to log() as a shortcut to not have to write the level each time.
     
     Refer to log() for the variable purposes'''
+    print('This is the classic version of betterLogs made for KrillYouBot, please use logs.Logging.')
+
     if v == None:
         print('NOT ENOUGH ARGUMENTS! forgot to put a log file!')
         return
@@ -93,18 +93,17 @@ def log_warning(filename:str, v:any = None, showTime:bool = True, isHeader:bool 
     log(filename, v, '[WARN]:', showTime, isHeader, doPrinting, file, pos)
 
 def log_warn(filename:str, v:any = None, showTime:bool = True, isHeader:bool = False, doPrinting:bool = True, file:str = '', pos:int = 0):
-    print('This is the classic version of betterLogs made for KrillYouBot, please use logs.Logging.')
-
     r'''Redirect function to log_warning() as a shortcut'''
+    print('This is the classic version of betterLogs made for KrillYouBot, please use logs.Logging.')
 
     log_warning(filename, v, showTime, isHeader, doPrinting, file, pos)
 
 def log_error(filename:str, v:any = None, showTime:bool = True, isHeader:bool = False, doPrinting:bool = True, file:str = '', pos:int = 0):
-    print('This is the classic version of betterLogs made for KrillYouBot, please use logs.Logging.')
-
     r'''Redirect function to log() as a shortcut to not have to write the level each time.
     
     Refer to log() for the variable purposes'''
+    print('This is the classic version of betterLogs made for KrillYouBot, please use logs.Logging.')
+
     if v == None:
         print('NOT ENOUGH ARGUMENTS! forgot to put a log file!')
         return
@@ -120,11 +119,11 @@ def log_err(filename:str, v:any = None, showTime:bool = True, isHeader:bool = Fa
     log_error(filename, v, showTime, isHeader, doPrinting, file, pos)
 
 def log_critical(filename:str, v:any = None, showTime:bool = True, isHeader:bool = False, doPrinting:bool = True, file:str = '', pos:int = 0):
-    print('This is the classic version of betterLogs made for KrillYouBot, please use logs.Logging.')
-
     r'''Redirect function to log() as a shortcut to not have to write the level each time.
     
     Refer to log() for the variable purposes'''
+    print('This is the classic version of betterLogs made for KrillYouBot, please use logs.Logging.')
+
     if v == None:
         print('NOT ENOUGH ARGUMENTS! forgot to put a log file!')
         return
