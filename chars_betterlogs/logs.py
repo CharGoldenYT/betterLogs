@@ -1,4 +1,4 @@
-1from datetime import datetime
+from datetime import datetime
 from inspect import currentframe, getframeinfo
 from io import TextIOWrapper
 from .internal.semver import SemVer
@@ -100,6 +100,38 @@ class Logging:
         if self.allowPrinting: print(color + logString)
 
         self._write('   <log value="' + logString.replace(fileString, '') + '" />\n')
+        
+    def log_withCensor(self, log:str, level:str, includeTimestamp:bool = True, isHeader:bool = False, fileFrom:str = '', pos:int = 0, extraData:list[str] = []):
+        time = str(datetime.today().strftime('%d-%m-%Y %H:%M:%S'))
+        timeString = '[' + time + ']: '
+
+        color:str = bcolors.HEADER
+        
+        if not isHeader:
+            level = level.lower()
+            if level == 'info':color = bcolors.OKBLUE
+            if level == 'warn' or level == 'warning':color = bcolors.WARNING
+            if level == 'err' or level == 'error':color = bcolors.FAIL
+            if level == 'critical':color = bcolors.FAIL
+            if level == 'fatal':color = bcolors.FAIL
+
+        if not includeTimestamp:
+            timeString = ''
+
+        fileString = ''
+
+        if fileFrom != '':
+            fileString = fileFrom + ':' + str(pos) + ':'
+
+        logString = self._levelToString(level) + timeString + f"'{fileString + log}'".replace('"', "'").replace('<', "[").replace('>', ']')
+
+        printString = logString
+        for data in extraData:
+            printString.replace("[s%]", data, 1)
+            
+        if self.allowPrinting: print(color + printString)
+
+        self._write('   <log value="' + logString.replace(fileString, '').replace("[s%]", "####") + '" />\n')
 
     def log_header(self, log:str, level:str, includeTimestamps:bool = True,  fileFrom:str = '', pos:int = 0):
         self.log(log, level, includeTimestamps, True, fileFrom, pos)
